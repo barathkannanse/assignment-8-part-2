@@ -39,6 +39,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     python -m pip install -r requirements.txt
 
 # Switch to the non-privileged user to run the application.
+RUN pip install dumb-init
 USER appuser
 
 # Copy the source code into the container.
@@ -49,3 +50,7 @@ EXPOSE 8001
 
 # Run the application.
 CMD python3 -m uvicorn app:app --host=0.0.0.0 --port=8001
+
+EXPOSE 8001
+ENTRYPOINT ["/usr/local/bin/dumb-init","--"]
+CMD ["python3","-m","uvicorn","app:app","--host","0.0.0.0","--port","8001"]
