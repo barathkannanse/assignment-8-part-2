@@ -7,7 +7,7 @@
 # Want to help us make this template better? Share your feedback here: https://forms.gle/ybq9Krt8jtBL3iCk7
 
 ARG PYTHON_VERSION=3.11.4
-FROM python:${PYTHON_VERSION}-slim as base
+FROM python:${PYTHON_VERSION}-slim AS base
 
 # Prevents Python from writing pyc files.
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -46,10 +46,11 @@ USER appuser
 COPY . .
 
 # Expose the port that the application listens on.
-EXPOSE 8001
 
 # Run the application.
-CMD python3 -m uvicorn app:app --host=0.0.0.0 --port=8001
+
+
+
 
 EXPOSE 8001
 ENTRYPOINT ["/usr/local/bin/dumb-init","--"]
